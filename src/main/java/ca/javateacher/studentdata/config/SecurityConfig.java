@@ -44,8 +44,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         security.headers().frameOptions().sameOrigin();
 
         security.authorizeRequests()
-                .antMatchers("/css/**", "/js/**", "/Index", "/")
+                // remove "h2-console" from the program in production
+                .antMatchers("/css/**", "/js/**", "/Index", "/", "/h2-console/**")
                 .permitAll();
+
+        // this line is for h2-console, it reduces security
+        security.csrf().disable();
 
         security.authorizeRequests()
                 .antMatchers("/users/**").hasRole("ADMIN")
