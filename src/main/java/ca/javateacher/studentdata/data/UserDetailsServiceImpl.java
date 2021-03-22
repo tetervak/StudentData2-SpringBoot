@@ -20,7 +20,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     private final Logger logger = LoggerFactory.getLogger(UserDetailsServiceImpl.class);
 
-    private LoginDataService loginDataService;
+    private final LoginDataService loginDataService;
 
     public UserDetailsServiceImpl(
             @Qualifier("loginDataServiceJpaImpl") LoginDataService loginDataService) {
