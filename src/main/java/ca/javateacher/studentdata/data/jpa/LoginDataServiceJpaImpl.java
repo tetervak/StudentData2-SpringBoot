@@ -12,9 +12,9 @@ import java.util.List;
 @Transactional
 public class LoginDataServiceJpaImpl implements LoginDataService {
 
-    private UserDataRepositoryJpa userDataRepository;
-    private RoleDataRepositoryJpa roleDataRepository;
-    private PasswordEncoder passwordEncoder;
+    private final UserDataRepositoryJpa userDataRepository;
+    private final RoleDataRepositoryJpa roleDataRepository;
+    private final PasswordEncoder passwordEncoder;
 
     public LoginDataServiceJpaImpl(
             UserDataRepositoryJpa userDataRepository,
