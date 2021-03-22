@@ -23,8 +23,8 @@ public class UserDataController {
 
     private final Logger logger = LoggerFactory.getLogger(UserDataController.class);
 
-    private LoginDataService loginDataService;
-    private PasswordGenerator passwordGenerator;
+    private final LoginDataService loginDataService;
+    private final PasswordGenerator passwordGenerator;
 
     @Autowired
     public UserDataController(
