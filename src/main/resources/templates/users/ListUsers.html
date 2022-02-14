@@ -47,7 +47,7 @@
                     <tr th:each="u,c:${users}">
                         <th th:text="${c.count}" scope="row">1</th>
                         <td th:text="${u}">bart</td>
-                        <td><a th:href="@{DeleteUser(login=${u})}"
+                        <td><a th:href="@{delete-user(login=${u})}"
                                href="DeleteUser.html"><i class="material-icons">delete</i>&nbsp;Delete</a></td>
                     </tr>
                 </tbody>
@@ -71,7 +71,7 @@
                         <th th:text="${c.count}" scope="row">1</th>
                         <td th:text="${a}">marge</td>
                         <td>
-                            <a th:unless="${#strings.equals(a, you)}" th:href="@{DeleteUser(login=${a})}"
+                            <a th:unless="${#strings.equals(a, you)}" th:href="@{delete-user(login=${a})}"
                                href="DeleteUser.html"><i class="material-icons">delete</i>&nbsp;Delete</a>
                             <span th:if="${#strings.equals(a, you)}" class="message">You</span>
                         </td>
@@ -83,7 +83,7 @@
 
     <div class="mt-4 row">
         <div class="col-md-6">
-            <a th:href="@{AddUser}" href="AddUser.html"
+            <a th:href="@{add-user}" href="AddUser.html"
                class="btn btn-primary"><i class="fas fa-user-plus"></i>&nbsp;Add User</a>
         </div>
     </div>

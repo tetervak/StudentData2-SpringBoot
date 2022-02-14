@@ -36,7 +36,7 @@ public class PasswordDataController {
     }
 
     // a user clicks "Change password" link
-    @GetMapping("/ChangePassword")
+    @GetMapping("/change-password")
     public String changePassword(Model model) {
         logger.trace("changePassword() is called");
         model.addAttribute("pcform", new PasswordChangeForm());
@@ -45,7 +45,7 @@ public class PasswordDataController {
 
     // a user clicks "Change Password" button in "ChangePassword.html",
     // the form submits data to "/UpdatePassword.do"
-    @PostMapping("/UpdatePassword")
+    @PostMapping("/update-password")
     public String updatePassword(
             @Validated @ModelAttribute("pcform") PasswordChangeForm pcform,
             BindingResult result) {

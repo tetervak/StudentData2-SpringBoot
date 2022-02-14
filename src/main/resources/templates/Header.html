@@ -18,7 +18,7 @@
     <div th:fragment="HeaderBar">
         <nav class="navbar navbar-expand-sm navbar-dark navbar-custom">
             <div class="container">
-                <a th:href="@{/Index}" href="Index.html" class="navbar-brand">Student Data</a>
+                <a th:href="@{/index}" href="Index.html" class="navbar-brand">Student Data</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse"
                         data-target="#navbar" aria-controls="navbar"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -27,20 +27,20 @@
                 <div class="collapse navbar-collapse" id="navbar">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
-                            <a th:href="@{/Index}" href="Index.html" class="nav-link">
+                            <a th:href="@{/index}" href="Index.html" class="nav-link">
                                 <i class="material-icons">home</i>&nbsp;Home</a>
                         </li>
                         <li sec:authorize="isAuthenticated()"class="nav-item">
-                            <a th:href="@{/students/Index}" href="students/Index.html" class="nav-link">
+                            <a th:href="@{/students/index}" href="students/Index.html" class="nav-link">
                                 <i class="material-icons">school</i>&nbsp;Students</a>
                         </li>
                     </ul>
                     <ul class="navbar-nav navbar-right">
                         <li sec:authorize="isAuthenticated()" class="nav-item">
-                            <a th:href="@{/Logout}" href="Index.html" class="nav-link"><i class="fas fa-sign-out-alt"></i>&nbsp;Logout</a>
+                            <a th:href="@{/logout}" href="Index.html" class="nav-link"><i class="fas fa-sign-out-alt"></i>&nbsp;Logout</a>
                         </li>
                         <li sec:authorize="isAnonymous()" class="nav-item">
-                            <a th:href="@{/Login}" href="Login.html" class="nav-link"><i class="fas fa-sign-in-alt"></i>&nbsp;Login</a>
+                            <a th:href="@{/login}" href="Login.html" class="nav-link"><i class="fas fa-sign-in-alt"></i>&nbsp;Login</a>
                         </li>
                     </ul>
                 </div>

@@ -30,10 +30,10 @@
     </div>
 </header>
 <main role="main" class="container">
-    <form action="ListUsers.html" th:action="@{RemoveUser}" method="post">
+    <form action="ListUsers.html" th:action="@{remove-user}" method="post">
         <input type="hidden" name="login" th:value="${#request.getParameter('login')}">
         <div class="btn-group">
-            <a href="ListUsers.html" th:href="@{ListUsers}"
+            <a href="ListUsers.html" th:href="@{list-users}"
                role="button" class="btn btn-secondary"><i class="material-icons">undo</i>&nbsp;Cancel</a>
             <button type="submit" class="btn btn-danger">Delete User&nbsp;<i class="material-icons">delete</i></button>
         </div>

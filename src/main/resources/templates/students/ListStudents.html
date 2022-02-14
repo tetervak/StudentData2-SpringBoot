@@ -46,17 +46,17 @@
                 <ul class="nav justify-content-center">
                     <li class="nav-item">
                         <a class="nav-link" href="StudentDetails.html"
-                           th:href="@{StudentDetails/{id}(id=${s.id})}">
+                           th:href="@{student-details/{id}(id=${s.id})}">
                             <i class="material-icons">info</i>&nbsp;Info</a>
                     </li>
                     <li sec:authorize="hasRole('ADMIN')" class="nav-item">
                         <a class="nav-link" href="EditStudent.html"
-                           th:href="@{EditStudent(id=${s.id})}">
+                           th:href="@{edit-student(id=${s.id})}">
                             <i class="material-icons">edit</i>&nbsp;Edit</a>
                     </li>
                     <li sec:authorize="hasRole('ADMIN')" class="nav-item">
                         <a class="nav-link" href="DeleteStudent.html"
-                           th:href="@{DeleteStudent(id=${s.id})}">
+                           th:href="@{delete-student(id=${s.id})}">
                             <i class="material-icons">delete</i>&nbsp;Delete</a>
                     </li>
                 </ul>
@@ -109,7 +109,7 @@
         </tbody>
     </table>
     <p sec:authorize="hasRole('ADMIN')" class="mt-2">
-        <a th:href="@{DeleteAll}" href="ListStudents.html"
+        <a th:href="@{delete-all}" href="ListStudents.html"
            class="btn btn-danger"><i class="material-icons">delete</i>&nbsp;Delete All</a>
     </p>
 </main>

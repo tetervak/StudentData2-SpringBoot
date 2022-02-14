@@ -34,14 +34,14 @@ public class UserDataController {
         this.passwordGenerator = passwordGenerator;
     }
 
-    @GetMapping(value={"/","/Index"})
+    @GetMapping(value={"/","/index"})
     public String index(){
         logger.trace("index() is called");
         return "users/Index";
     }
 
     // an admin clicks "List Users" link in "Index.html",
-    @GetMapping("/ListUsers")
+    @GetMapping("/list-users")
     public String listUsers(Model model) {
         logger.trace("listUsers() is called");
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -54,7 +54,7 @@ public class UserDataController {
     }
 
     // an admin clicks "Add User" link in "ListUsers.html",
-    @GetMapping("/AddUser")
+    @GetMapping("/add-user")
     public String addUser(Model model) {
         logger.trace("addUser() is called");
         String message = "Enter login and password for the new user account.";
@@ -65,7 +65,7 @@ public class UserDataController {
 
     // an admin clicks on "Add User" button in "AddUser.html",
     // the form submits the data to "InsertUser"
-    @PostMapping("/InsertUser")
+    @PostMapping("/insert-user")
     public String insertUser(HttpServletRequest request) {
         logger.trace("insertUser() is called");
         String login = request.getParameter("login");
@@ -104,7 +104,7 @@ public class UserDataController {
     }
 
     // an admin clicks "Delete" link in "ListUsers.html",
-    @GetMapping("/DeleteUser")
+    @GetMapping("/delete-user")
     public String deleteUser() {
         logger.trace("deleteUser() is called");
         return "users/DeleteUser";
@@ -112,10 +112,10 @@ public class UserDataController {
 
     // an admin clicks on "Delete User" button in "DeleteUser.jsp",
     // the form submits the data to "RemoveUser"
-    @PostMapping("/RemoveUser")
+    @PostMapping("/remove-user")
     public String removeUser(@RequestParam String login) {
         loginDataService.removeRoles(login);
         loginDataService.removeUser(login);
-        return "redirect:/users/ListUsers";
+        return "redirect:/users/list-users";
     }
 }

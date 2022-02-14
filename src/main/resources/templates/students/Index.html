@@ -29,11 +29,11 @@
     <main role="main" class="container">
         <ul class="nav flex-column">
             <li class="nav-item">
-                <a href="ListStudents.html" th:href="@{ListStudents}"
+                <a href="ListStudents.html" th:href="@{list-students}"
                    class="nav-link"><i class="material-icons">format_list_numbered</i>&nbsp;List Students</a>
             </li>
             <li sec:authorize="hasRole('ADMIN')" class="nav-item">
-                <a href="AddStudent.html" th:href="@{AddStudent}"
+                <a href="AddStudent.html" th:href="@{add-student}"
                    class="nav-link"><i class="material-icons">playlist_add</i>&nbsp;Add Student</a>
             </li>
 

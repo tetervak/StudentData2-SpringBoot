@@ -32,14 +32,14 @@ public class StudentDataController {
         this.studentDataService = studentDataService;
     }
 
-    @GetMapping(value={"/", "/Index"})
+    @GetMapping(value={"/", "/index"})
     public String index(){
         logger.trace("index() is called");
         return "students/Index";
     }
 
     @Secured("ROLE_ADMIN")
-    @GetMapping("/AddStudent")
+    @GetMapping("/add-student")
     public ModelAndView addStudent(){
         logger.trace("addStudent() is called");
         ModelAndView modelAndView =
@@ -50,7 +50,7 @@ public class StudentDataController {
     }
 
     @Secured("ROLE_ADMIN")
-    @PostMapping("/InsertStudent")
+    @PostMapping("/insert-student")
     public String insertStudent(
             @Validated @ModelAttribute("form") StudentForm form,
             BindingResult bindingResult,
@@ -65,12 +65,12 @@ public class StudentDataController {
         } else {
             logger.trace("the user inputs are correct");
             studentDataService.insertStudentForm(form);
-            return "redirect:/students/ConfirmInsert/" + form.getId();
+            return "redirect:/students/confirm-insert/" + form.getId();
         }
     }
 
     @Secured("ROLE_ADMIN")
-    @GetMapping("/ConfirmInsert/{id}")
+    @GetMapping("/confirm-insert/{id}")
     public String confirmInsert(@PathVariable(name = "id") String strId, Model model){
         logger.trace("confirmInsert() is called");
         try {
@@ -91,23 +91,22 @@ public class StudentDataController {
         }
     }
 
-    @GetMapping("/ListStudents")
+    @GetMapping("/list-students")
     public ModelAndView listStudents() {
         logger.trace("listStudents() is called");
         List<StudentForm> list = studentDataService.getAllStudentForms();
-        return new ModelAndView("students/ListStudents",
-                                "students", list);
+        return new ModelAndView("students/ListStudents", "students", list);
     }
 
     @Secured("ROLE_ADMIN")
-    @GetMapping("/DeleteAll")
+    @GetMapping("/delete-all")
     public String deleteAll(){
         logger.trace("deleteAll() is called");
         studentDataService.deleteAllStudentForms();
         return "redirect:/students/ListStudents";
     }
 
-    @GetMapping("StudentDetails/{id}")
+    @GetMapping("student-details/{id}")
     public String studentDetails(@PathVariable String id, Model model){
         logger.trace("studentDetails() is called");
         try {
@@ -127,7 +126,7 @@ public class StudentDataController {
 
     // a user clicks "Delete" link (in the table) to "DeleteStudent"
     @Secured("ROLE_ADMIN")
-    @GetMapping("/DeleteStudent")
+    @GetMapping("/delete-student")
     public String deleteStudent(@RequestParam String id, Model model) {
         logger.trace("deleteStudent() is called");
         try {
@@ -136,17 +135,17 @@ public class StudentDataController {
                 model.addAttribute("student", form);
                 return "students/DeleteStudent"; // ask "Do you really want to remove?"
             } else {
-                return "redirect:/students/ListStudents";
+                return "redirect:/students/list-students";
             }
         } catch (NumberFormatException e) {
-            return "redirect:/students/ListStudents";
+            return "redirect:/students/list-students";
         }
     }
 
     // a user clicks "Remove Record" button in "DeleteStudent" page,
     // the form submits the data to "RemoveStudent"
     @Secured("ROLE_ADMIN")
-    @PostMapping("/RemoveStudent")
+    @PostMapping("/remove-student")
     public String removeStudent(@RequestParam String id) {
         logger.trace("removeStudent() is called");
         try {
@@ -154,12 +153,12 @@ public class StudentDataController {
         } catch (NumberFormatException e) {
             logger.trace("the id is missing or not an integer");
         }
-        return "redirect:/students/ListStudents";
+        return "redirect:/students/list-students";
     }
 
     // a user clicks "Edit" link (in the table) to "EditStudent"
     @Secured("ROLE_ADMIN")
-    @GetMapping("/EditStudent")
+    @GetMapping("/edit-student")
     public String editStudent(@RequestParam String id, Model model) {
         logger.trace("editStudent() is called");
         try {
@@ -170,17 +169,17 @@ public class StudentDataController {
                 return "students/EditStudent";
             } else {
                 logger.trace("no data for this id=" + id);
-                return "redirect:/students/ListStudents";
+                return "redirect:/students/list-students";
             }
         } catch (NumberFormatException e) {
             logger.trace("the id is missing or not an integer");
-            return "redirect:/students/ListStudents";
+            return "redirect:/students/list-students";
         }
     }
 
     // the form submits the data to "UpdateStudent"
     @Secured("ROLE_ADMIN")
-    @PostMapping("/UpdateStudent")
+    @PostMapping("/update-student")
     public String updateStudent(
             @Validated @ModelAttribute("form") StudentForm form,
             BindingResult bindingResult,
@@ -196,7 +195,7 @@ public class StudentDataController {
             logger.trace("the user inputs are correct");
             studentDataService.updateStudentForm(form);
             logger.debug("id = " + form.getId());
-            return "redirect:/students/StudentDetails/" + form.getId();
+            return "redirect:/students/student-details/" + form.getId();
         }
     }
 }

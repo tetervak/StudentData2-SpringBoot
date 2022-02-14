@@ -1,16 +1,13 @@
 package ca.javateacher.studentdata.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
@@ -19,23 +16,20 @@ import org.thymeleaf.extras.springsecurity5.dialect.SpringSecurityDialect;
 
 import javax.sql.DataSource;
 
-@Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true)
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     DataSource dataSource;
 
-    @Autowired
-    void setDataSource(DataSource dataSource){
-        this.dataSource = dataSource;
-    }
-
-    @Autowired
-    public void configureGlobal(
+    WebSecurityConfig(
             @Qualifier("userDetailsServiceImpl") UserDetailsService userDetailsService,
-            AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+            AuthenticationManagerBuilder auth,
+            DataSource dataSource,
+            PasswordEncoder passwordEncoder
+    )throws Exception {
+        this.dataSource = dataSource;
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
     }
 
     @Override
@@ -45,7 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         security.authorizeRequests()
                 // remove "h2-console" from the program in production
-                .antMatchers("/css/**", "/js/**", "/Index", "/", "/h2-console/**")
+                .antMatchers("/css/**", "/js/**", "/index", "/", "/h2-console/**")
                 .permitAll();
 
         // this line is for h2-console, it reduces security
@@ -57,14 +51,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authenticated();
 
         security.formLogin()
-                .loginPage("/Login")
-                .defaultSuccessUrl("/Index")
-                .failureUrl("/Login?error")
+                .loginPage("/login")
+                .defaultSuccessUrl("/index")
+                .failureUrl("/login?error")
                 .permitAll();
 
         security.logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher("/Logout"))
-                .logoutSuccessUrl("/Index")
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .logoutSuccessUrl("/index")
                 .deleteCookies("my-remember-me-cookie")
                 .permitAll();
 
@@ -78,11 +72,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         JdbcTokenRepositoryImpl tokenRepositoryImpl = new JdbcTokenRepositoryImpl();
         tokenRepositoryImpl.setDataSource(dataSource);
         return tokenRepositoryImpl;
-    }
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
     }
 
     @Bean

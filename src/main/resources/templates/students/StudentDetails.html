@@ -60,10 +60,10 @@
         <div class="card-footer">
             <div class="btn-group">
                 <a sec:authorize="hasRole('ADMIN')" class="btn btn-warning" href="EditStudent.html"
-                   th:href="@{../EditStudent(id=*{id})}">
+                   th:href="@{../edit-student(id=*{id})}">
                     <i class="material-icons">edit</i>&nbsp;Edit Record</a>
                 <a class="btn btn-primary" href="ListStudents.html"
-                   th:href="@{../ListStudents}">
+                   th:href="@{../list-students}">
                     <i class="material-icons">format_list_numbered</i>&nbsp;List Students</a>
             </div>
         </div>

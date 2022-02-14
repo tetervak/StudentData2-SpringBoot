@@ -29,7 +29,7 @@
 <main role="main" class="container">
     <form method="post"
           id="edit_student_form" class="form-horizontal"
-          th:action="@{UpdateStudent}" action="StudentDetails.html"
+          th:action="@{update-student}" action="StudentDetails.html"
           th:object="${form}">
 
         <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger">

@@ -61,10 +61,10 @@
             </p>
         </div>
         <div class="card-footer">
-            <form th:action="@{RemoveStudent}" action="ListStudents.html" method="post">
+            <form th:action="@{remove-student}" action="ListStudents.html" method="post">
                 <input type="hidden" name="id" th:value="${student.id}">
                 <div class="btn-group">
-                    <a th:href="@{ListStudents}" href="ListStudents.html"
+                    <a th:href="@{list-students}" href="ListStudents.html"
                        role="button" class="btn btn-secondary">
                         <i class="material-icons">arrow_left</i>&nbsp;Cancel</a>
                     <button type="submit" class="btn btn-danger">
