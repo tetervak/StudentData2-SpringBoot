@@ -4,8 +4,6 @@ import ca.javateacher.studentdata.data.LoginDataService;
 import ca.javateacher.studentdata.model.PasswordGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -26,10 +24,10 @@ public class UserDataController {
     private final LoginDataService loginDataService;
     private final PasswordGenerator passwordGenerator;
 
-    @Autowired
     public UserDataController(
-            @Qualifier("loginDataServiceJpaImpl") LoginDataService loginDataService,
-            PasswordGenerator passwordGenerator) {
+            LoginDataService loginDataService,
+            PasswordGenerator passwordGenerator
+    ) {
         this.loginDataService = loginDataService;
         this.passwordGenerator = passwordGenerator;
     }

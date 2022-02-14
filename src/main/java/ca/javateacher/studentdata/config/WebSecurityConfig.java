@@ -1,6 +1,5 @@
 package ca.javateacher.studentdata.config;
 
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -23,7 +22,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     DataSource dataSource;
 
     WebSecurityConfig(
-            @Qualifier("userDetailsServiceImpl") UserDetailsService userDetailsService,
+            UserDetailsService userDetailsService,
             AuthenticationManagerBuilder auth,
             DataSource dataSource,
             PasswordEncoder passwordEncoder

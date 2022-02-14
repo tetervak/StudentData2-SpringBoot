@@ -4,7 +4,6 @@ import ca.javateacher.studentdata.data.StudentDataService;
 import ca.javateacher.studentdata.model.StudentForm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,10 +24,9 @@ public class StudentDataController {
             "Computer Programmer", "Systems Technology",
             "Engineering Technician", "Systems Technician"};
 
-    private StudentDataService studentDataService;
+    private final StudentDataService studentDataService;
 
-    public StudentDataController(
-            @Qualifier("studentDataServiceJpaImpl") StudentDataService studentDataService){
+    public StudentDataController(StudentDataService studentDataService){
         this.studentDataService = studentDataService;
     }
 

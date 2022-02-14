@@ -5,8 +5,6 @@ import ca.javateacher.studentdata.model.PasswordChangeForm;
 import ca.javateacher.studentdata.model.PasswordChangeValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -22,11 +20,9 @@ public class PasswordDataController {
 
     private final Logger logger = LoggerFactory.getLogger(PasswordDataController.class);
 
-    private LoginDataService loginDataService;
+    private final LoginDataService loginDataService;
 
-    @Autowired
-    public PasswordDataController(
-            @Qualifier("loginDataServiceJpaImpl") LoginDataService loginDataService) {
+    public PasswordDataController(LoginDataService loginDataService) {
         this.loginDataService = loginDataService;
     }
 
