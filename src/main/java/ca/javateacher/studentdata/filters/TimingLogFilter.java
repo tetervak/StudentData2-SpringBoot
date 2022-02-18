@@ -32,6 +32,7 @@ public class TimingLogFilter implements Filter {
         String uri = ((HttpServletRequest)servletRequest).getRequestURI();
         logger.info("time taken to process request for " + uri +
                 " is "  + time + " microseconds");
+        logger.trace("doFilter() returned");
     }
 
     @Override

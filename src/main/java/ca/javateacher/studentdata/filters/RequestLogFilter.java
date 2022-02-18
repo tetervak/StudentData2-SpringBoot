@@ -25,6 +25,7 @@ public class RequestLogFilter implements Filter {
         String remoteHost = servletRequest.getRemoteHost();
         logger.info("request for " + requestUri + " from " + remoteHost);
         filterChain.doFilter(servletRequest, servletResponse);
+        logger.trace("doFilter() returned");
     }
 
     @Override
