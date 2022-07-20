@@ -19,6 +19,7 @@ import java.util.List;
 public class StudentDataController {
 
     private static final String[] programs = {
+            "--- Select Program ---",
             "Computer Programmer", "Systems Technology",
             "Engineering Technician", "Systems Technician"};
 
@@ -99,7 +100,7 @@ public class StudentDataController {
     public String deleteAll(){
         log.trace("deleteAll() is called");
         studentDataService.deleteAllStudentForms();
-        return "redirect:/students/ListStudents";
+        return "redirect:/students/list-students";
     }
 
     @GetMapping("student-details/{id}")

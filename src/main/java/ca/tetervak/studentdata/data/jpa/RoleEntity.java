@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "role")
+@Table(name = "app_role")
 public class RoleEntity {
 
     @Column(name = "id")

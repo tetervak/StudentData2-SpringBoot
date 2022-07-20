@@ -21,42 +21,37 @@
     <h1>Confirmation</h1>
 </header>
 <main>
-
     <p class="message">The student has been registered.</p>
-
     <div th:object="${student}">
-
         <h2>Student Record</h2>
-
-            <p>
-                <label class="output-label">First Name:</label>
-                <span class="output" th:text="*{firstName}">Bart</span>
-            </p>
-            <p>
-                <label class="output-label">Last Name:</label>
-                <span class="output" th:text="*{lastName}">Simpson</span>
-            </p>
-            <p>
-                <label class="output-label">Program:</label>
-                <span class="output" th:text="*{programName}">Computer Programmer</span>
-            </p>
-            <p>
-                <label class="output-label">Year:</label>
-                <span class="output" th:text="*{programYear}">1</span>
-            </p>
-            <p>
-                <label class="output-label">Co-op:</label>
-                <span class="output" th:text="*{programCoop}">yes</span>
-            </p>
-            <p>
-                <label class="output-label">Internship:</label>
-                <span class="output" th:text="*{programInternship}">no</span>
-            </p>
-        </div>
-
-            <a href="ListStudents.html" th:href="@{../list-students}">List Students</a>
-
+        <p>
+            <label class="output-label">First Name:</label>
+            <span class="output" th:text="*{firstName}">Bart</span>
+        </p>
+        <p>
+            <label class="output-label">Last Name:</label>
+            <span class="output" th:text="*{lastName}">Simpson</span>
+        </p>
+        <p>
+            <label class="output-label">Program:</label>
+            <span class="output" th:text="*{programName}">Computer Programmer</span>
+        </p>
+        <p>
+            <label class="output-label">Year:</label>
+            <span class="output" th:text="*{programYear}">1</span>
+        </p>
+        <p>
+            <label class="output-label">Co-op:</label>
+            <span th:text="*{programCoop}?'yes':'no'" class="output">yes</span>
+        </p>
+        <p>
+            <label class="output-label">Internship:</label>
+            <span th:text="*{programInternship}?'yes':'no'" class="output">no</span>
+        </p>
     </div>
+    <p>
+        <a href="ListStudents.html" th:href="@{../list-students}">List Students</a>
+    </p>
 </main>
 </body>
 </html>
