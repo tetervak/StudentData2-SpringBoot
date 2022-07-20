@@ -3,114 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <link rel="icon" type="image/x-icon" href="../../static/favicon.ico" th:href="@{/favicon.ico}">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="../../static/css/main.css" th:href="@{/css/main.css}">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" ></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+    <link rel="stylesheet" href="../../static/css/footer.css" th:href="@{/css/footer.css}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="../../static/js/footer.js" th:src="@{/js/footer.js}"></script>
     <title>List All</title>
 </head>
 <body>
 <header>
-    <div th:replace="Header :: HeaderBar">
-        <nav class="navbar navbar-expand-sm navbar-dark navbar-custom">
-            <div class="container">
-                <a href="../Index.html" class="navbar-brand">Student Data</a>
-            </div>
-        </nav>
+    <div th:replace="Navigation :: NavigationBar">
+        <ul class="navigation-bar">
+            <li>
+                <a th:href="@{/index}" href="Index.html">Home</a>
+            </li>
+        </ul>
     </div>
-    <div class="container">
-        <h1 class="my-4">Student List</h1>
-    </div>
+    <h1>Student List</h1>
 </header>
-<main role="main" class="container">
-    <p th:if="${#lists.isEmpty(students)}" class="alert alert-info">No student data</p>
-    <table th:unless="${#lists.isEmpty(students)}" class="table table-bordered table-striped mb-4">
-        <thead>
-        <tr class="table-primary">
-            <th scope="col">Count</th>
-            <th scope="col">Last Name</th>
-            <th scope="col">First Name</th>
-            <th scope="col">Options</th>
+<main>
+    <p th:if="${#lists.isEmpty(students)}" class="message">No student data</p>
+    <table th:unless="${#lists.isEmpty(students)}">
+        <tr>
+            <th>Count</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Options</th>
         </tr>
-        </thead>
-        <tbody>
         <tr th:each="s,c: ${students}">
-            <th th:text="${c.count}" scope="row" class="align-middle">1</th>
-            <td th:text="${s.lastName}" class="align-middle">Simpson</td>
-            <td th:text="${s.firstName}" class="align-middle">Bart</td>
+            <td th:text="${c.count}">1</td>
+
+            <td th:text="${s.firstName}">Bart</td>
+            <td th:text="${s.lastName}">Simpson</td>
             <td>
-                <ul class="nav justify-content-center">
-                    <li class="nav-item">
-                        <a class="nav-link" href="StudentDetails.html"
-                           th:href="@{student-details/{id}(id=${s.id})}">
-                            <i class="material-icons">info</i>&nbsp;Info</a>
-                    </li>
-                    <li sec:authorize="hasRole('ADMIN')" class="nav-item">
-                        <a class="nav-link" href="EditStudent.html"
-                           th:href="@{edit-student(id=${s.id})}">
-                            <i class="material-icons">edit</i>&nbsp;Edit</a>
-                    </li>
-                    <li sec:authorize="hasRole('ADMIN')" class="nav-item">
-                        <a class="nav-link" href="DeleteStudent.html"
-                           th:href="@{delete-student(id=${s.id})}">
-                            <i class="material-icons">delete</i>&nbsp;Delete</a>
-                    </li>
-                </ul>
+                <a href="StudentDetails.html" th:href="@{student-details/{id}(id=${s.id})}">Details</a>
+                &nbsp;|&nbsp;
+                <a href="EditStudent.html" th:href="@{edit-student(id=${s.id})}">Edit</a>
+                &nbsp;|&nbsp;
+                <a href="DeleteStudent.html" th:href="@{delete-student(id=${s.id})}">Delete</a>
             </td>
         </tr>
         <!--/*-->
         <tr>
-            <th scope="row" class="align-middle">2</th>
-            <td class="align-middle">Simpson</td>
-            <td class="align-middle">Lisa</td>
+            <td>2</td>
+            <td>Lisa</td>
+            <td>Simpson</td>
             <td>
-                <ul class="nav justify-content-center">
-                    <li class="nav-item">
-                        <a class="nav-link" href="StudentDetails.html">
-                            <i class="material-icons">info</i>&nbsp;Info</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="EditStudent.html">
-                            <i class="material-icons">edit</i>&nbsp;Edit</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="DeleteStudent.html">
-                            <i class="material-icons">delete</i>&nbsp;Delete</a>
-                    </li>
-                </ul>
-            </td>
-        </tr>
-        <tr>
-            <th scope="row" class="align-middle">3</th>
-            <td class="align-middle">Simpson</td>
-            <td class="align-middle">Homer</td>
-            <td>
-                <ul class="nav justify-content-center">
-                    <li class="nav-item">
-                        <a class="nav-link" href="StudentDetails.html">
-                            <i class="material-icons">info</i>&nbsp;Info</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="EditStudent.html">
-                            <i class="material-icons">edit</i>&nbsp;Edit</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="DeleteStudent.html">
-                            <i class="material-icons">delete</i>&nbsp;Delete</a>
-                    </li>
-                </ul>
+                <a href="StudentDetails.html">Details</a>
+                &nbsp;|&nbsp;
+                <a href="EditStudent.html">Edit</a>
+                &nbsp;|&nbsp;
+                <a href="DeleteStudent.html">Delete</a>
             </td>
         </tr>
         <!--*/-->
-        </tbody>
     </table>
-    <p sec:authorize="hasRole('ADMIN')" class="mt-2">
-        <a th:href="@{delete-all}" href="ListStudents.html"
-           class="btn btn-danger"><i class="material-icons">delete</i>&nbsp;Delete All</a>
+    <p><a href="AddStudent.html" th:href="@{add-student}">Add Student</a></p>
+    <p sec:authorize="hasRole('ADMIN')">
+        <a href="ListStudents.html" th:href="@{delete-all}">Delete All</a>
     </p>
 </main>
 </body>

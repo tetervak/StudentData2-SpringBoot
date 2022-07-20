@@ -10,7 +10,7 @@ VALUES
 ('Draco', 'Malfoy', 'Engineering Technician', 1, true, true);
 
 /* all these passwords are "sesame" */
-INSERT INTO user
+INSERT INTO `user`
 (user_name, password)
 VALUES
 ('marge','$2a$10$bxGtVIu12/dXFQ8I1VrCmeFap8AXK.8EFgp.NRgaGt5no27uZd8Ty'),

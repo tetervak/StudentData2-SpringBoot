@@ -1,92 +1,61 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<!--/*@thymesVar id="users" type="java.util.List<java.lang.String>"*/-->
-<!--/*@thymesVar id="admins" type="java.util.List<java.lang.String>"*/-->
-<!--/*@thymesVar id="you" type="java.util.List<java.lang.String>"*/-->
 <head>
     <meta charset="UTF-8">
     <link rel="icon" type="image/x-icon" href="../../static/favicon.ico" th:href="@{/favicon.ico}">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="../../static/css/main.css" th:href="@{/css/main.css}">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" ></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+    <link rel="stylesheet" href="../../static/css/footer.css" th:href="@{/css/footer.css}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="../../static/js/footer.js" th:src="@{/js/footer.js}"></script>
     <title>List Users</title>
 </head>
 <body>
 <header>
-    <div th:replace="Header :: HeaderBar">
-        <nav class="navbar navbar-expand-sm navbar-dark navbar-custom">
-            <div class="container">
-                <a href="../Index.html" class="navbar-brand">Student Data</a>
-            </div>
-        </nav>
+    <div th:replace="Navigation :: NavigationBar">
+        <ul class="navigation-bar">
+            <li>
+                <a th:href="@{/index}" href="Index.html">Home</a>
+            </li>
+        </ul>
     </div>
-    <div class="container">
-        <h1 class="my-4">User List</h1>
-    </div>
+    <h1>User List</h1>
 </header>
-
-<main role="main" class="container">
+<main>
     <h2>Role: User</h2>
-    <div class="row">
-        <div class="col-md-6">
-            <p th:if="${#lists.isEmpty(users)}" class="alert alert-info">No user accounts yet.</p>
-            <table th:unless="${#lists.isEmpty(users)}" class="table table-bordered table-hover mb-4">
-                <thead>
-                    <tr class="table-primary">
-                        <th scope="col">Count</th>
-                        <th scope="col">Login</th>
-                        <th scope="col">Delete</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr th:each="u,c:${users}">
-                        <th th:text="${c.count}" scope="row">1</th>
-                        <td th:text="${u}">bart</td>
-                        <td><a th:href="@{delete-user(login=${u})}"
-                               href="DeleteUser.html"><i class="material-icons">delete</i>&nbsp;Delete</a></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
+    <p th:if="${#lists.isEmpty(users)}" class="message">No user accounts yet.</p>
+    <table th:unless="${#lists.isEmpty(users)}">
+        <tr>
+            <th>Count</th>
+            <th>Login</th>
+            <th>Delete</th>
+        </tr>
+        <tr th:each="u,c:${users}">
+            <td th:text="${c.count}">1</td>
+            <td th:text="${u}">bart</td>
+            <td><a th:href="@{delete-user(login=${u})}" href="DeleteUser.html">Delete</a></td>
+        </tr>
+    </table>
 
     <h2>Role: Admin</h2>
-    <div class="row">
-        <div class="col-md-6">
-            <table class="table table-bordered table-hover">
-                <thead>
-                <tr class="table-primary">
-                    <th scope="col">Count</th>
-                    <th scope="col">Login</th>
-                    <th scope="col">Delete</th>
-                </tr>
-                </thead>
-                <tbody>
-                    <tr th:each="a,c:${admins}">
-                        <th th:text="${c.count}" scope="row">1</th>
-                        <td th:text="${a}">marge</td>
-                        <td>
-                            <a th:unless="${#strings.equals(a, you)}" th:href="@{delete-user(login=${a})}"
-                               href="DeleteUser.html"><i class="material-icons">delete</i>&nbsp;Delete</a>
-                            <span th:if="${#strings.equals(a, you)}" class="message">You</span>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-    <div class="mt-4 row">
-        <div class="col-md-6">
-            <a th:href="@{add-user}" href="AddUser.html"
-               class="btn btn-primary"><i class="fas fa-user-plus"></i>&nbsp;Add User</a>
-        </div>
-    </div>
+    <table>
+        <tr>
+            <th>Count</th>
+            <th>Login</th>
+            <th>Delete</th>
+        </tr>
+        <tr th:each="a,c:${admins}">
+            <td th:text="${c.count}">1</td>
+            <td th:text="${a}">marge</td>
+            <td>
+                <a th:unless="${#strings.equals(a, you)}"
+                   th:href="@{delete-user(login=${a})}" href="DeleteUser.html">Delete</a>
+                <span th:if="${#strings.equals(a, you)}" class="message">You</span>
+            </td>
+        </tr>
+    </table>
+    <p>
+        <a th:href="@{add-user}" href="AddUser.html">Add User</a>
+    </p>
 </main>
 </body>
 </html>

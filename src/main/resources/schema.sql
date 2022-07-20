@@ -8,7 +8,7 @@ CREATE TABLE student (
      program_internship BOOLEAN
 );
 
-CREATE TABLE user (
+CREATE TABLE `user` (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_name VARCHAR(15) UNIQUE NOT NULL,
     password VARCHAR(128) NOT NULL
@@ -24,7 +24,7 @@ CREATE TABLE user_role (
    role_id INT NOT NULL,
 
    PRIMARY KEY (user_id, role_id),
-   FOREIGN KEY(user_id) REFERENCES user(id),
+   FOREIGN KEY(user_id) REFERENCES `user`(id),
    FOREIGN KEY(role_id) REFERENCES role(id)
 );
 
