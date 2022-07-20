@@ -8,7 +8,7 @@ import java.util.List;
 @Entity
 @Table(name = "app_user")
 @Data
-public class UserEntity {
+public class UserEntityJpa {
 
     @Column(name = "id")
     @Id
@@ -26,5 +26,5 @@ public class UserEntity {
             name="app_user_role",
             joinColumns={@JoinColumn(name="user_id", referencedColumnName="id")},
             inverseJoinColumns={@JoinColumn(name="role_id", referencedColumnName="id")})
-    private List<RoleEntity> roles;
+    private List<RoleEntityJpa> roles;
 }

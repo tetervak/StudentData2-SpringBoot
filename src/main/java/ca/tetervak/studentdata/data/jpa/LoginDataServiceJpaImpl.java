@@ -32,7 +32,7 @@ public class LoginDataServiceJpaImpl implements LoginDataService {
 
     @Override
     public void insertUser(String userName, String password) {
-        UserEntity userEntity = new UserEntity();
+        UserEntityJpa userEntity = new UserEntityJpa();
         userEntity.setUserName(userName);
         userEntity.setPassword(passwordEncoder.encode(password));
         userDataRepository.save(userEntity);
@@ -40,9 +40,9 @@ public class LoginDataServiceJpaImpl implements LoginDataService {
 
     @Override
     public void insertRole(String userName, String roleName) {
-        UserEntity userEntity = userDataRepository.findUserEntityByUserNameIs(userName);
+        UserEntityJpa userEntity = userDataRepository.findUserEntityByUserNameIs(userName);
         if(userEntity != null){
-            RoleEntity roleEntity = roleDataRepository.findRoleEntityByRoleNameIs(roleName);
+            RoleEntityJpa roleEntity = roleDataRepository.findRoleEntityByRoleNameIs(roleName);
             if(roleEntity != null){
                 userEntity.getRoles().add(roleEntity);
                 userDataRepository.save(userEntity);
@@ -57,10 +57,10 @@ public class LoginDataServiceJpaImpl implements LoginDataService {
 
     @Override
     public void removeRole(String userName, String roleName) {
-        UserEntity userEntity = userDataRepository.findUserEntityByUserNameIs(userName);
+        UserEntityJpa userEntity = userDataRepository.findUserEntityByUserNameIs(userName);
         if(userEntity != null){
-            List<RoleEntity> roles = userEntity.getRoles();
-            for(RoleEntity roleEntity: roles){
+            List<RoleEntityJpa> roles = userEntity.getRoles();
+            for(RoleEntityJpa roleEntity: roles){
                 if(roleEntity.getRoleName().equals(roleName)){
                     roles.remove(roleEntity);
                     break;
@@ -72,7 +72,7 @@ public class LoginDataServiceJpaImpl implements LoginDataService {
 
     @Override
     public void removeRoles(String userName) {
-        UserEntity userEntity = userDataRepository.findUserEntityByUserNameIs(userName);
+        UserEntityJpa userEntity = userDataRepository.findUserEntityByUserNameIs(userName);
         if(userEntity != null) {
             userEntity.getRoles().clear();
             userDataRepository.save(userEntity);
@@ -82,10 +82,10 @@ public class LoginDataServiceJpaImpl implements LoginDataService {
     @Override
     public List<String> getAllUserNames(String roleName) {
         List<String> userNames = new ArrayList<>();
-        RoleEntity roleEntity = roleDataRepository.findRoleEntityByRoleNameIs(roleName);
+        RoleEntityJpa roleEntity = roleDataRepository.findRoleEntityByRoleNameIs(roleName);
         if(roleEntity != null){
-            List<UserEntity> users = roleEntity.getUsers();
-            for(UserEntity userEntity: users){
+            List<UserEntityJpa> users = roleEntity.getUsers();
+            for(UserEntityJpa userEntity: users){
                 userNames.add(userEntity.getUserName());
             }
         }
@@ -95,10 +95,10 @@ public class LoginDataServiceJpaImpl implements LoginDataService {
     @Override
     public List<String> getAllRoleNames(String userName) {
         List<String> roleNames = new ArrayList<>();
-        UserEntity userEntity = userDataRepository.findUserEntityByUserNameIs(userName);
+        UserEntityJpa userEntity = userDataRepository.findUserEntityByUserNameIs(userName);
         if(userEntity != null){
-            List<RoleEntity> roles = userEntity.getRoles();
-            for(RoleEntity roleEntity: roles){
+            List<RoleEntityJpa> roles = userEntity.getRoles();
+            for(RoleEntityJpa roleEntity: roles){
                 roleNames.add(roleEntity.getRoleName());
             }
         }
@@ -108,7 +108,7 @@ public class LoginDataServiceJpaImpl implements LoginDataService {
 
     @Override
     public void updatePassword(String userName, String password) {
-        UserEntity userEntity = userDataRepository.findUserEntityByUserNameIs(userName);
+        UserEntityJpa userEntity = userDataRepository.findUserEntityByUserNameIs(userName);
         if(userEntity != null){
             userEntity.setPassword(passwordEncoder.encode(password));
             userDataRepository.save(userEntity);
@@ -127,7 +127,7 @@ public class LoginDataServiceJpaImpl implements LoginDataService {
 
     @Override
     public String getPassword(String userName) {
-        UserEntity userEntity = userDataRepository.findUserEntityByUserNameIs(userName);
+        UserEntityJpa userEntity = userDataRepository.findUserEntityByUserNameIs(userName);
         if(userEntity != null){
             return userEntity.getPassword();
         }else{

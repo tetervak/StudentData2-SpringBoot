@@ -8,7 +8,7 @@ import java.io.Serializable;
 @Data
 @Entity
 @Table(name = "student")
-public class StudentEntity implements Serializable {
+public class StudentEntityJpa implements Serializable {
 
     @Column(name = "id")
     @Id

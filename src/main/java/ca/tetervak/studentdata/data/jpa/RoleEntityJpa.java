@@ -8,7 +8,7 @@ import java.util.List;
 @Entity
 @Table(name = "app_role")
 @Data
-public class RoleEntity {
+public class RoleEntityJpa {
 
     @Column(name = "id")
     @Id
@@ -19,5 +19,5 @@ public class RoleEntity {
     private String roleName = "";
 
     @ManyToMany(mappedBy="roles")
-    private List<UserEntity> users;
+    private List<UserEntityJpa> users;
 }

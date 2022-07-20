@@ -2,6 +2,7 @@ package ca.tetervak.studentdata.data.jpa;
 
 import ca.tetervak.studentdata.data.StudentDataService;
 import ca.tetervak.studentdata.model.StudentForm;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.*;
 import org.springframework.stereotype.Service;
@@ -11,6 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@Slf4j
 public class StudentDataServiceJpaImpl implements StudentDataService {
 
     private StudentDataRepositoryJpa studentDataRepository;
@@ -19,7 +21,7 @@ public class StudentDataServiceJpaImpl implements StudentDataService {
         this.studentDataRepository = studentDataRepository;
     }
 
-    private static void copyFormToEntity(StudentForm form, StudentEntity student){
+    private static void copyFormToEntity(StudentForm form, StudentEntityJpa student){
         //student.setId(form.getId());
         student.setFirstName(form.getFirstName());
         student.setLastName(form.getLastName());
@@ -29,7 +31,7 @@ public class StudentDataServiceJpaImpl implements StudentDataService {
         student.setProgramInternship(form.isProgramInternship());
     }
 
-    private static void copyEntityToForm(StudentEntity student, StudentForm form){
+    private static void copyEntityToForm(StudentEntityJpa student, StudentForm form){
         form.setId(student.getId());
         form.setFirstName(student.getFirstName());
         form.setLastName(student.getLastName());
@@ -40,7 +42,7 @@ public class StudentDataServiceJpaImpl implements StudentDataService {
     }
 
     public void insertStudentForm(StudentForm form) {
-        StudentEntity student = new StudentEntity();
+        StudentEntityJpa student = new StudentEntityJpa();
         copyFormToEntity(form, student);
         student = studentDataRepository.save(student);
         form.setId(student.getId());
@@ -50,9 +52,9 @@ public class StudentDataServiceJpaImpl implements StudentDataService {
         Order orderByLastName = new Order(Direction.ASC, "lastName");
         Order orderByFirstName = new Order(Direction.ASC, "firstName");
         Sort sortByName = Sort.by(orderByLastName, orderByFirstName);
-        List<StudentEntity> studentList = studentDataRepository.findAll(sortByName);
+        List<StudentEntityJpa> studentList = studentDataRepository.findAll(sortByName);
         List<StudentForm> formList = new ArrayList<>();
-        for(StudentEntity student: studentList){
+        for(StudentEntityJpa student: studentList){
             StudentForm form = new StudentForm();
             copyEntityToForm(student, form);
             formList.add(form);
@@ -69,10 +71,10 @@ public class StudentDataServiceJpaImpl implements StudentDataService {
     }
 
     public StudentForm getStudentForm(int id) {
-        Optional<StudentEntity> result = studentDataRepository.findById(id);
+        Optional<StudentEntityJpa> result = studentDataRepository.findById(id);
         if(result.isPresent()){
             StudentForm form = new StudentForm();
-            StudentEntity student = result.get();
+            StudentEntityJpa student = result.get();
             copyEntityToForm(student, form);
             return form;
         }
@@ -80,9 +82,9 @@ public class StudentDataServiceJpaImpl implements StudentDataService {
     }
 
     public void updateStudentForm(StudentForm form) {
-        Optional<StudentEntity> result = studentDataRepository.findById(form.getId());
+        Optional<StudentEntityJpa> result = studentDataRepository.findById(form.getId());
         if(result.isPresent()){
-            StudentEntity student = result.get();
+            StudentEntityJpa student = result.get();
             copyFormToEntity(form, student);
             studentDataRepository.save(student);
             //studentRepository.flush();
