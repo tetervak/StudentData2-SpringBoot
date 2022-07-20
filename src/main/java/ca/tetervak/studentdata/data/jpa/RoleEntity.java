@@ -1,10 +1,13 @@
 package ca.tetervak.studentdata.data.jpa;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
 @Table(name = "app_role")
+@Data
 public class RoleEntity {
 
     @Column(name = "id")
@@ -17,31 +20,4 @@ public class RoleEntity {
 
     @ManyToMany(mappedBy="roles")
     private List<UserEntity> users;
-
-    public RoleEntity() {
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getRoleName() {
-        return roleName;
-    }
-
-    public void setRoleName(String roleName) {
-        this.roleName = roleName;
-    }
-
-    public List<UserEntity> getUsers() {
-        return users;
-    }
-
-    public void setUsers(List<UserEntity> users) {
-        this.users = users;
-    }
 }
