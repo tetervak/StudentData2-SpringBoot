@@ -36,10 +36,12 @@
             <td th:text="${s.lastName}">Simpson</td>
             <td>
                 <a href="StudentDetails.html" th:href="@{student-details/{id}(id=${s.id})}">Details</a>
+                <span sec:authorize="hasRole('ADMIN')">
                 &nbsp;|&nbsp;
                 <a href="EditStudent.html" th:href="@{edit-student(id=${s.id})}">Edit</a>
                 &nbsp;|&nbsp;
                 <a href="DeleteStudent.html" th:href="@{delete-student(id=${s.id})}">Delete</a>
+                </span>
             </td>
         </tr>
         <!--/*-->
@@ -57,10 +59,13 @@
         </tr>
         <!--*/-->
     </table>
-    <p><a href="AddStudent.html" th:href="@{add-student}">Add Student</a></p>
-    <p sec:authorize="hasRole('ADMIN')">
-        <a href="ListStudents.html" th:href="@{delete-all}">Delete All</a>
-    </p>
+    <ul sec:authorize="hasRole('ADMIN')">
+        <li>
+            <a href="AddStudent.html" th:href="@{add-student}">Add Student</a></li>
+        <li>
+            <a href="ListStudents.html" th:href="@{delete-all}">Delete All</a>
+        </li>
+    </ul>
 </main>
 </body>
 </html>
