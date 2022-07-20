@@ -31,13 +31,13 @@
         <li>
             <a th:href="@{/password/change-password}" href="passwords/ChangePassword.html">Change Password</a>
         </li>
-        <li sec:authorize="isAuthenticated()">
+        <li>
             <a th:href="@{/logout}" href="Index.html">Logout</a>
         </li>
-        <li sec:authorize="isAnonymous()">
-            <a th:href="@{/login}" href="Login.html">Login</a>
-        </li>
     </ul>
+    <p sec:authorize="isAnonymous()">
+        <a th:href="@{/login}" href="Login.html">Login</a>
+    </p>
 </main>
 </body>
 </html>
