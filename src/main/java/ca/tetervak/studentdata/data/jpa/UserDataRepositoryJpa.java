@@ -4,7 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserDataRepositoryJpa extends JpaRepository<UserEntityJpa, Integer> {
 
-    UserEntityJpa findUserEntityJpaByUserNameIs(String userName);
+    UserEntityJpa findByUserName(String userName);
 
-    void deleteUserEntityJpaByUserNameIs(String useName);
+    void deleteByUserName(String useName);
 }

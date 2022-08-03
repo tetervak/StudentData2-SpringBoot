@@ -27,7 +27,7 @@ public class LoginDataServiceJpaImpl implements LoginDataService {
 
     @Override
     public boolean userExists(String userName) {
-        return userDataRepository.findUserEntityJpaByUserNameIs(userName) != null;
+        return userDataRepository.findByUserName(userName) != null;
     }
 
     @Override
@@ -40,9 +40,9 @@ public class LoginDataServiceJpaImpl implements LoginDataService {
 
     @Override
     public void insertRole(String userName, String roleName) {
-        UserEntityJpa userEntity = userDataRepository.findUserEntityJpaByUserNameIs(userName);
+        UserEntityJpa userEntity = userDataRepository.findByUserName(userName);
         if(userEntity != null){
-            RoleEntityJpa roleEntity = roleDataRepository.findRoleEntityJpaByRoleNameIs(roleName);
+            RoleEntityJpa roleEntity = roleDataRepository.findByRoleName(roleName);
             if(roleEntity != null){
                 userEntity.getRoles().add(roleEntity);
                 userDataRepository.save(userEntity);
@@ -52,12 +52,12 @@ public class LoginDataServiceJpaImpl implements LoginDataService {
 
     @Override
     public void removeUser(String userName) {
-        userDataRepository.deleteUserEntityJpaByUserNameIs(userName);
+        userDataRepository.deleteByUserName(userName);
     }
 
     @Override
     public void removeRole(String userName, String roleName) {
-        UserEntityJpa userEntity = userDataRepository.findUserEntityJpaByUserNameIs(userName);
+        UserEntityJpa userEntity = userDataRepository.findByUserName(userName);
         if(userEntity != null){
             List<RoleEntityJpa> roles = userEntity.getRoles();
             for(RoleEntityJpa roleEntity: roles){
@@ -72,7 +72,7 @@ public class LoginDataServiceJpaImpl implements LoginDataService {
 
     @Override
     public void removeRoles(String userName) {
-        UserEntityJpa userEntity = userDataRepository.findUserEntityJpaByUserNameIs(userName);
+        UserEntityJpa userEntity = userDataRepository.findByUserName(userName);
         if(userEntity != null) {
             userEntity.getRoles().clear();
             userDataRepository.save(userEntity);
@@ -82,7 +82,7 @@ public class LoginDataServiceJpaImpl implements LoginDataService {
     @Override
     public List<String> getAllUserNames(String roleName) {
         List<String> userNames = new ArrayList<>();
-        RoleEntityJpa roleEntity = roleDataRepository.findRoleEntityJpaByRoleNameIs(roleName);
+        RoleEntityJpa roleEntity = roleDataRepository.findByRoleName(roleName);
         if(roleEntity != null){
             List<UserEntityJpa> users = roleEntity.getUsers();
             for(UserEntityJpa userEntity: users){
@@ -95,7 +95,7 @@ public class LoginDataServiceJpaImpl implements LoginDataService {
     @Override
     public List<String> getAllRoleNames(String userName) {
         List<String> roleNames = new ArrayList<>();
-        UserEntityJpa userEntity = userDataRepository.findUserEntityJpaByUserNameIs(userName);
+        UserEntityJpa userEntity = userDataRepository.findByUserName(userName);
         if(userEntity != null){
             List<RoleEntityJpa> roles = userEntity.getRoles();
             for(RoleEntityJpa roleEntity: roles){
@@ -108,7 +108,7 @@ public class LoginDataServiceJpaImpl implements LoginDataService {
 
     @Override
     public void updatePassword(String userName, String password) {
-        UserEntityJpa userEntity = userDataRepository.findUserEntityJpaByUserNameIs(userName);
+        UserEntityJpa userEntity = userDataRepository.findByUserName(userName);
         if(userEntity != null){
             userEntity.setPassword(passwordEncoder.encode(password));
             userDataRepository.save(userEntity);
@@ -127,7 +127,7 @@ public class LoginDataServiceJpaImpl implements LoginDataService {
 
     @Override
     public String getPassword(String userName) {
-        UserEntityJpa userEntity = userDataRepository.findUserEntityJpaByUserNameIs(userName);
+        UserEntityJpa userEntity = userDataRepository.findByUserName(userName);
         if(userEntity != null){
             return userEntity.getPassword();
         }else{
