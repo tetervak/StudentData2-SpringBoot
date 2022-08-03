@@ -1,13 +1,16 @@
 package ca.tetervak.studentdata.data.jpa;
 
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
-@Data
+
 @Entity
 @Table(name = "student")
+@NoArgsConstructor
+@Getter
+@Setter
 public class StudentEntityJpa implements Serializable {
 
     @Column(name = "id")

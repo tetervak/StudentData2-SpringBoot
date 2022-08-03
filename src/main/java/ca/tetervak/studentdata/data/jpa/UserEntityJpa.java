@@ -1,13 +1,15 @@
 package ca.tetervak.studentdata.data.jpa;
 
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
 @Table(name = "app_user")
-@Data
+@NoArgsConstructor
+@Getter
+@Setter
 public class UserEntityJpa {
 
     @Column(name = "id")
