@@ -22,8 +22,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     private final LoginDataService loginDataService;
 
-    public UserDetailsServiceImpl(
-            @Qualifier("loginDataServiceJpaImpl") LoginDataService loginDataService) {
+    public UserDetailsServiceImpl(LoginDataService loginDataService) {
 
         this.loginDataService = loginDataService;
     }
