@@ -58,11 +58,11 @@ public class WebSecurityConfig {
         security.logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .logoutSuccessUrl("/index")
-                .deleteCookies("my-remember-me-cookie")
+                .deleteCookies("remember-me")
                 .permitAll();
 
         security.rememberMe()
-                .rememberMeCookieName("my-remember-me-cookie")
+                .rememberMeCookieName("remember-me")
                 .tokenRepository(persistentTokenRepository())
                 .tokenValiditySeconds(24 * 60 * 60);
 
