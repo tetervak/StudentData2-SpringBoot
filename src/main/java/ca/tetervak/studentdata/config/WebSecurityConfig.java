@@ -38,11 +38,11 @@ public class WebSecurityConfig {
 
         security.authorizeHttpRequests()
                 // remove "h2-console" from the program in production
-                .requestMatchers("/css/**", "/js/**", "/", "/index", "/login","/h2-console/**")
+                .requestMatchers("/css/**", "/js/**", "/", "/index")
                 .permitAll();
 
         // this line is for h2-console, it reduces security
-        security.csrf().disable();
+        //security.csrf().disable();
 
         security.authorizeHttpRequests()
                 .requestMatchers("/users/**").hasRole("ADMIN")
