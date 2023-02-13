@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.servlet.http.HttpServletRequest;
-
 @Slf4j
 @Controller
 @RequestMapping("/users")
@@ -62,11 +60,13 @@ public class UserDataController {
     // an admin clicks on "Add User" button in "AddUser.html",
     // the form submits the data to "InsertUser"
     @PostMapping("/insert-user")
-    public String insertUser(HttpServletRequest request) {
+    public String insertUser(
+            @RequestParam String login,
+            @RequestParam String password,
+            @RequestParam String role,
+            Model model
+    ) {
         log.trace("insertUser() is called");
-        String login = request.getParameter("login");
-        String password = request.getParameter("password");
-        String role = request.getParameter("role");
         String message;
         if (login == null || login.trim().isEmpty()) {
             log.trace("missing login input");
@@ -82,20 +82,20 @@ public class UserDataController {
             password = password.trim();
             loginDataService.insertUser(login, password);
             log.trace("added user " + login);
-            request.setAttribute("login",login);
+            model.addAttribute("login",login);
             if(role != null && role.equals("admin")){
                 loginDataService.insertRole(login, "ROLE_ADMIN");
                 log.trace("added ROLE_ADMIN to " + login);
-                request.setAttribute("role","admin");
+                model.addAttribute("role","admin");
             }else{
                 loginDataService.insertRole(login, "ROLE_USER");
                 log.trace("added ROLE_USER to " + login);
-                request.setAttribute("role","user");
+                model.addAttribute("role","user");
             }
             return "users/UserAdded";
         }
-        request.setAttribute("message", message);
-        request.setAttribute("random", passwordGenerator.randomPassword());
+        model.addAttribute("message", message);
+        model.addAttribute("random", passwordGenerator.randomPassword());
         return "users/AddUser";
     }
 

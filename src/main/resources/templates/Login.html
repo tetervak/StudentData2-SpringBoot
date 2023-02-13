@@ -11,7 +11,7 @@
 </head>
 <body>
 <header>
-	<div th:replace="Navigation :: NavigationBar">
+	<div th:replace="~{Navigation :: NavigationBar}">
 		<ul class="navigation-bar">
 			<li>
 				<a th:href="@{/index}" href="Index.html">Home</a>
@@ -22,7 +22,7 @@
 	<h2>Please login to continue.</h2>
 </header>
 <main>
-	<p th:if="${#request.getParameter('error')}" class="message">
+	<p th:if="${error}" class="message">
 		You did not login successfully.
 	</p>
 
